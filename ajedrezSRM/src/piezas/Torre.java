@@ -18,7 +18,7 @@ public class Torre extends Pieza {
 
 	private static final int[] VECTOR_COORDENADA_MOVIMIENTO_CANDIDATA = { -8, -1, 1, 8 };
 
-	Torre(int posicionPieza, Bando bandoDeLaPieza) {
+	public Torre(final int posicionPieza, final Bando bandoDeLaPieza) {
 		super(posicionPieza, bandoDeLaPieza);
 	}
 

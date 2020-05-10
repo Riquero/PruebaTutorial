@@ -19,7 +19,7 @@ public class Alfil extends Pieza {
 	//patrón de movimiento del alfil
 	private final static int[] VECTOR_COORDENADA_MOVIMIENTO_CANDIDATA = { -9, -7, 7, 9 };
 
-	Alfil(int posicionPieza, Bando bandoDeLaPieza) {
+	public Alfil(final int posicionPieza, final Bando bandoDeLaPieza) {
 		super(posicionPieza, bandoDeLaPieza);
 	}
 

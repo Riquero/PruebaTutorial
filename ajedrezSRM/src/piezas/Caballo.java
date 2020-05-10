@@ -18,7 +18,7 @@ public class Caballo extends Pieza {
 
 	private final static int[] COORDENADAS_MOVIMIENTO_CANDIDATAS = { -17, -15, -10, -6, 6, 10, 15, 17 };
 
-	Caballo(final int posicionPieza, final Bando bandoDeLaPieza) {
+	public Caballo(final int posicionPieza, final Bando bandoDeLaPieza) {
 		super(posicionPieza, bandoDeLaPieza);
 	}
 

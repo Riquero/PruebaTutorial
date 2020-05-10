@@ -19,7 +19,7 @@ public class Reina extends Pieza{
 	// Combinación de torre+alfil
 	private final static int[] VECTOR_COORDENADA_MOVIMIENTO_CANDIDATA = { -9, -8, -7, -1, 1, 7, 8, 9 };
 	
-	Reina(int posicionPieza, Bando bandoDeLaPieza) {
+	public Reina(final int posicionPieza, final Bando bandoDeLaPieza) {
 		super(posicionPieza, bandoDeLaPieza);
 	}
 
