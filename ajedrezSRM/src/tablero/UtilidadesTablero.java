@@ -13,8 +13,7 @@ public class UtilidadesTablero {
 	public static final int NUMERO_DE_CASILLAS = 64;
 	public static final int NUMERO_DE_CASILLAS_POR_FILA = 8; 
 	
-	//Hola Jesús
-	// heyyyyy
+	// Hola Jesús
 
 	private UtilidadesTablero() {
 		throw new RuntimeException("No puedes instanciarme");
