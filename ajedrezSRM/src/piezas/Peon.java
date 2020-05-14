@@ -45,24 +45,26 @@ public class Peon extends Pieza {
 					movimientosLegales
 							.add(new Movimiento.MovimientoPiezaMayor(tablero, this, destinoCoordenadaCandidata));
 				}
-			} else if (candidatoActual == 7 && 
-					!((UtilidadesTablero.OCTAVA_COLUMNA[this.posicionPieza] && this.bandoDeLaPieza.esBlanca()  || 
-					(UtilidadesTablero.PRIMERA_COLUMNA[this.posicionPieza] && this.bandoDeLaPieza.esNegra()))  )) {
-				if(Tablero.getCasilla(destinoCoordenadaCandidata).estaCasillaOcupada()) {
+			} else if (candidatoActual == 7 && !((UtilidadesTablero.OCTAVA_COLUMNA[this.posicionPieza]
+					&& this.bandoDeLaPieza.esBlanca()
+					|| (UtilidadesTablero.PRIMERA_COLUMNA[this.posicionPieza] && this.bandoDeLaPieza.esNegra())))) {
+				if (Tablero.getCasilla(destinoCoordenadaCandidata).estaCasillaOcupada()) {
 					final Pieza piezaEnCandidata = Tablero.getCasilla(destinoCoordenadaCandidata).getPieza();
-					if(this.bandoDeLaPieza != piezaEnCandidata.getBando()) {
-						//TODO
-						movimientosLegales.add(new Movimiento.MovimientoPiezaMayor(tablero, this, destinoCoordenadaCandidata));
+					if (this.bandoDeLaPieza != piezaEnCandidata.getBando()) {
+						// TODO
+						movimientosLegales
+								.add(new Movimiento.MovimientoPiezaMayor(tablero, this, destinoCoordenadaCandidata));
 					}
 				}
-			} else if (candidatoActual == 9 &&
-					!((UtilidadesTablero.PRIMERA_COLUMNA[this.posicionPieza] && this.bandoDeLaPieza.esBlanca()  || 
-					 (UtilidadesTablero.OCTAVA_COLUMNA[this.posicionPieza] && this.bandoDeLaPieza.esNegra()))  )) {
-				if(Tablero.getCasilla(destinoCoordenadaCandidata).estaCasillaOcupada()) {
+			} else if (candidatoActual == 9 && !((UtilidadesTablero.PRIMERA_COLUMNA[this.posicionPieza]
+					&& this.bandoDeLaPieza.esBlanca()
+					|| (UtilidadesTablero.OCTAVA_COLUMNA[this.posicionPieza] && this.bandoDeLaPieza.esNegra())))) {
+				if (Tablero.getCasilla(destinoCoordenadaCandidata).estaCasillaOcupada()) {
 					final Pieza piezaEnCandidata = Tablero.getCasilla(destinoCoordenadaCandidata).getPieza();
-					if(this.bandoDeLaPieza != piezaEnCandidata.getBando()) {
-						//TODO
-						movimientosLegales.add(new Movimiento.MovimientoPiezaMayor(tablero, this, destinoCoordenadaCandidata));
+					if (this.bandoDeLaPieza != piezaEnCandidata.getBando()) {
+						// TODO
+						movimientosLegales
+								.add(new Movimiento.MovimientoPiezaMayor(tablero, this, destinoCoordenadaCandidata));
 					}
 				}
 			}
