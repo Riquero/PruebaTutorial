@@ -6,10 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Usuario/Google Drive/Ahorcado/guava-18.0.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="libreria/guava-18.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -11,6 +11,10 @@ public enum Bando {
 		public boolean esBlanca() {
 			return true;
 		}
+		@Override
+		public Jugador elegirJugador(final JugadorBlancas jugadorBlancas,final JugadorNegras jugadorNegras) {			
+			return jugadorBlancas;
+		}
 	},
 	NEGRAS{
 		public int getDirection() {
@@ -24,8 +28,14 @@ public enum Bando {
 			
 			return false;
 		}
+		@Override
+		public Jugador elegirJugador(final JugadorBlancas jugadorBlancas,final JugadorNegras jugadorNegras) {			
+			return jugadorNegras;
+		}
 	}; 
 	public abstract int getDirection();
 	public abstract boolean esNegra();
 	public abstract boolean esBlanca();
+	
+	public abstract Jugador elegirJugador(final JugadorBlancas jugadorBlancas,final JugadorNegras jugadorNegras);
 }

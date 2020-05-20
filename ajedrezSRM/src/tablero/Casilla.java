@@ -16,7 +16,7 @@ public abstract class Casilla {
 
 	// Atributos de clase.
 	protected final int coordenadaCasilla;
-	// Quiero que sea visiblemente protegido e inmutable (final).
+	// Quiero que sea protegido e inmutable (final).
 	private static final Map<Integer, CasillaVacia> CACHE_DE_CASILLAS_VACIAS = crearTodasLasCasillasVaciasPosibles();
 
 	// Constructores
@@ -24,12 +24,17 @@ public abstract class Casilla {
 		this.coordenadaCasilla = coordenadaCasilla;
 	}
 
+	public int getCoordenadaCasilla() {
+		return this.coordenadaCasilla;
+	}
+	
 	public abstract boolean estaCasillaOcupada();
 
 	public abstract Pieza getPieza();
 
 	public static Casilla crearCasilla(final int coordenadaCasilla, final Pieza pieza) {
-		return pieza != null ? new CasillaOcupada(coordenadaCasilla, pieza) : CACHE_DE_CASILLAS_VACIAS.get(coordenadaCasilla);
+		return pieza != null ? new CasillaOcupada(coordenadaCasilla, pieza)
+				: CACHE_DE_CASILLAS_VACIAS.get(coordenadaCasilla);
 	}
 
 	/*
@@ -52,10 +57,17 @@ public abstract class Casilla {
 			super(coordenada);
 		}
 
+		@Override
+		public String toString() {
+			return "-";
+		}
+
+		@Override
 		public Pieza getPieza() {
 			return null;
 		}
 
+		@Override
 		public boolean estaCasillaOcupada() {
 			return false;
 		}
@@ -71,10 +83,17 @@ public abstract class Casilla {
 			this.piezaEnCasilla = pieza;
 		}
 
+		@Override
+		public String toString() {
+			return getPieza().getBando().esNegra() ? getPieza().toString().toLowerCase() : getPieza().toString();
+		}
+
+		@Override
 		public boolean estaCasillaOcupada() {
 			return true;
 		}
 
+		@Override
 		public Pieza getPieza() {
 			return this.piezaEnCasilla;
 		}

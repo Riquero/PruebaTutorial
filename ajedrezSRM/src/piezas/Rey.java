@@ -9,8 +9,8 @@ import com.google.common.collect.ImmutableList;
 import jugadores.Bando;
 import tablero.Casilla;
 import tablero.Movimiento;
+import tablero.Movimiento.MovimientoDeAtaque;
 import tablero.Movimiento.MovimientoPiezaMayor;
-import tablero.Movimiento.MovimientoPiezaMayor.MovimientoDeAtaque;
 import tablero.Tablero;
 import tablero.UtilidadesTablero;
 
@@ -19,7 +19,7 @@ public class Rey extends Pieza {
 	private final static int[] VECTOR_COORDENADA_MOVIMIENTO_CANDIDATA = { -9, -8, -7, -1, 1, 7, 8, 9 };
 
 	public Rey(final int posicionPieza, final Bando bandoDeLaPieza) {
-		super(posicionPieza, bandoDeLaPieza);
+		super(posicionPieza, bandoDeLaPieza, TipoDePieza.REY);
 	}
 
 	public Collection<Movimiento> calculaMovimientosLegales(Tablero tablero) {
@@ -29,9 +29,8 @@ public class Rey extends Pieza {
 		for (final int candidatoActual : VECTOR_COORDENADA_MOVIMIENTO_CANDIDATA) {
 			final int destinoCoordenadaCandidata = this.posicionPieza + candidatoActual;
 			if (UtilidadesTablero.esCasillaValida(destinoCoordenadaCandidata)) {
-				final Casilla destinoCasillaCandidata = Tablero.getCasilla(destinoCoordenadaCandidata);
+				final Casilla destinoCasillaCandidata = tablero.getCasilla(destinoCoordenadaCandidata);
 
-				
 				if (exclusionDePrimeraColumna(this.posicionPieza, candidatoActual)
 						|| exclusionDeOctavaColumna(this.posicionPieza, candidatoActual)) {
 					continue;
@@ -63,5 +62,15 @@ public class Rey extends Pieza {
 	private static boolean exclusionDeOctavaColumna(final int posicionActual, final int candidatoAExclusion) {
 		return UtilidadesTablero.OCTAVA_COLUMNA[posicionActual]
 				&& (candidatoAExclusion == -7 || candidatoAExclusion == 1 || candidatoAExclusion == 9);
+	}
+
+	@Override
+	public String toString() {
+		return tipoDePieza.REY.toString();
+	}
+
+	@Override
+	public Rey moverPieza(Movimiento movimiento) {		
+		return new Rey(movimiento.getCoordenadaDeDestino(), movimiento.getPiezaMovida().getBando());
 	}
 }

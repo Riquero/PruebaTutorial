@@ -2,12 +2,17 @@ package tablero;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 import jugadores.Bando;
+import jugadores.Jugador;
+import jugadores.JugadorBlancas;
+import jugadores.JugadorNegras;
 import piezas.Alfil;
 import piezas.Caballo;
 import piezas.Peon;
@@ -22,14 +27,37 @@ public class Tablero {
 	private final Collection<Pieza> piezasBlancas;
 	private final Collection<Pieza> piezasNegras;
 
-	private Tablero(Constructor constructor) {
+	private final JugadorBlancas jugadorBlancas;
+	private final JugadorNegras jugadorNegras;
+	private final Jugador jugadorActual;
+
+	private Tablero(final Constructor constructor) {
 		this.tableroDelJuego = crearTableroDelJuego(constructor);
 		this.piezasBlancas = calcularPiezasActivas(this.tableroDelJuego, Bando.BLANCAS);
 		this.piezasNegras = calcularPiezasActivas(this.tableroDelJuego, Bando.NEGRAS);
+
+		final Collection<Movimiento> movimientosEstandarLegalesBlancas = calcularMovimientosLegales(this.piezasBlancas);
+		final Collection<Movimiento> movimientosEstandarLegalesNegras = calcularMovimientosLegales(this.piezasNegras);
+
+		this.jugadorBlancas = new JugadorBlancas(this, movimientosEstandarLegalesBlancas,
+				movimientosEstandarLegalesNegras);
+		this.jugadorNegras = new JugadorNegras(this, movimientosEstandarLegalesNegras,
+				movimientosEstandarLegalesBlancas);
+		this.jugadorActual = constructor.bandoDelJugadorQueMueve.elegirJugador(this.jugadorBlancas, this.jugadorNegras);
+	}
+
+	private Collection<Movimiento> calcularMovimientosLegales(Collection<Pieza> piezas) {
+
+		final List<Movimiento> movimientosLegales = new ArrayList<>();
+		for (final Pieza pieza : piezas) {
+			movimientosLegales.addAll(pieza.calculaMovimientosLegales(this));
+		}
+
+		return ImmutableList.copyOf(movimientosLegales);
 	}
 
 	private Collection<Pieza> calcularPiezasActivas(final List<Casilla> tablero, final Bando bando) {
-		
+
 		final List<Pieza> piezasActivas = new ArrayList<>();
 
 		for (Casilla casilla : tableroDelJuego) {
@@ -43,8 +71,20 @@ public class Tablero {
 		return ImmutableList.copyOf(piezasActivas);
 	}
 
+	public Collection<Pieza> getPiezasNegras() {
+		return this.piezasNegras;
+	}
+
+	public Collection<Pieza> getPiezasBlancas() {
+		return this.piezasBlancas;
+	}
+
 	public Casilla getCasilla(final int coordenadaDeLaPieza) {
 		return tableroDelJuego.get(coordenadaDeLaPieza);
+	}
+
+	public Jugador getJugadorActual() {
+		return this.jugadorActual;
 	}
 
 	private static List<Casilla> crearTableroDelJuego(final Constructor constructor) {
@@ -97,13 +137,39 @@ public class Tablero {
 		return constructor.construir();
 	}
 
+	public Jugador jugadorBlancas() {
+		return this.jugadorBlancas;
+	}
+
+	public Jugador jugadorNegras() {
+		return this.jugadorNegras;
+	}
+
+	@Override
+	public String toString() {
+		final StringBuilder constructor = new StringBuilder();
+		for (int i = 0; i < UtilidadesTablero.NUMERO_DE_CASILLAS; i++) {
+			final String textoDeCasilla = this.tableroDelJuego.get(i).toString();
+			constructor.append(String.format("%3s", textoDeCasilla));
+			if ((i + 1) % UtilidadesTablero.NUMERO_DE_CASILLAS_POR_FILA == 0) {
+				constructor.append(System.getProperty("line.separator"));
+			}
+		}
+		return constructor.toString();
+	}
+	
+	public Iterable<Movimiento> getTodosLosMovimientosLegales() {
+		return Iterables.unmodifiableIterable(Iterables.concat(this.jugadorBlancas.getMovimientosLegales(), this.jugadorNegras.getMovimientosLegales()));
+	}
+
 	public static class Constructor {
 
 		Map<Integer, Pieza> configuracionDeTablero;
 		Bando bandoDelJugadorQueMueve;
+		Peon peonEnPassant;
 
 		public Constructor() {
-
+			this.configuracionDeTablero = new HashMap<>();
 		}
 
 		public Constructor setPieza(final Pieza pieza) {
@@ -119,5 +185,10 @@ public class Tablero {
 		public Tablero construir() {
 			return new Tablero(this);
 		}
+
+		public void setPeonEnPassant(Peon peonEnPassant) {
+			this.peonEnPassant = peonEnPassant;
+		}
 	}
+
 }

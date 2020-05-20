@@ -9,8 +9,8 @@ import com.google.common.collect.ImmutableList;
 import jugadores.Bando;
 import tablero.Casilla;
 import tablero.Movimiento;
+import tablero.Movimiento.MovimientoDeAtaque;
 import tablero.Movimiento.MovimientoPiezaMayor;
-import tablero.Movimiento.MovimientoPiezaMayor.MovimientoDeAtaque;
 import tablero.Tablero;
 import tablero.UtilidadesTablero;
 
@@ -19,7 +19,7 @@ public class Caballo extends Pieza {
 	private final static int[] COORDENADAS_MOVIMIENTO_CANDIDATAS = { -17, -15, -10, -6, 6, 10, 15, 17 };
 
 	public Caballo(final int posicionPieza, final Bando bandoDeLaPieza) {
-		super(posicionPieza, bandoDeLaPieza);
+		super(posicionPieza, bandoDeLaPieza, TipoDePieza.CABALLO);
 	}
 
 	public Collection<Movimiento> calculaMovimientosLegales(final Tablero tablero) {
@@ -81,5 +81,15 @@ public class Caballo extends Pieza {
 	private static boolean exclusionDeOctavaColumna(final int posicionActual, final int candidatoAExclusion) {
 		return UtilidadesTablero.OCTAVA_COLUMNA[posicionActual] && (candidatoAExclusion == 17
 				|| candidatoAExclusion == 10 || candidatoAExclusion == -6 || candidatoAExclusion == -15);
+	}
+	
+	@Override
+	public String toString() {
+		return tipoDePieza.CABALLO.toString();
+	}
+
+	@Override
+	public Caballo moverPieza(Movimiento movimiento) {		
+		return new Caballo(movimiento.getCoordenadaDeDestino(), movimiento.getPiezaMovida().getBando());
 	}
 }
