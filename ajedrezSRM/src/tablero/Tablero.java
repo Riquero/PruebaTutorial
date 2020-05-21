@@ -133,7 +133,6 @@ public class Tablero {
 		constructor.setPieza(new Torre(63, Bando.BLANCAS));
 		// Mueven blancas
 		constructor.setBandoDelJugadorQueMueve(Bando.BLANCAS);
-
 		return constructor.construir();
 	}
 

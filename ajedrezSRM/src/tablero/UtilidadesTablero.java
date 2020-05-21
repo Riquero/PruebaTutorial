@@ -7,8 +7,14 @@ public class UtilidadesTablero {
 	public static final boolean[] SEPTIMA_COLUMNA = iniciarColumna(6);
 	public static final boolean[] OCTAVA_COLUMNA = iniciarColumna(7);
 
-	public static final boolean[] SEGUNDA_FILA = iniciarFila(8);
-	public static final boolean[] SEPTIMA_FILA = iniciarFila(48);
+	public static final boolean[] PRIMERA_FILA = iniciarFila(56);
+	public static final boolean[] SEGUNDA_FILA = iniciarFila(48);
+	public static final boolean[] TERCERA_FILA = iniciarFila(40);
+	public static final boolean[] CUARTA_FILA = iniciarFila(32);
+	public static final boolean[] QUINTA_FILA = iniciarFila(24);
+	public static final boolean[] SEXTA_FILA = iniciarFila(16);
+	public static final boolean[] SEPTIMA_FILA = iniciarFila(8);
+	public static final boolean[] OCTAVA_FILA = iniciarFila(0);
 
 	public static final int NUMERO_DE_CASILLAS = 64;
 	public static final int NUMERO_DE_CASILLAS_POR_FILA = 8;
