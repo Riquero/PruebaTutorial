@@ -31,11 +31,13 @@ public class Tablero {
 	private final JugadorNegras jugadorNegras;
 	private final Jugador jugadorActual;
 
+	private final Peon peonEnPassant;
+
 	private Tablero(final Constructor constructor) {
 		this.tableroDelJuego = crearTableroDelJuego(constructor);
 		this.piezasBlancas = calcularPiezasActivas(this.tableroDelJuego, Bando.BLANCAS);
 		this.piezasNegras = calcularPiezasActivas(this.tableroDelJuego, Bando.NEGRAS);
-
+		this.peonEnPassant = constructor.peonEnPassant;
 		final Collection<Movimiento> movimientosEstandarLegalesBlancas = calcularMovimientosLegales(this.piezasBlancas);
 		final Collection<Movimiento> movimientosEstandarLegalesNegras = calcularMovimientosLegales(this.piezasNegras);
 
@@ -85,6 +87,10 @@ public class Tablero {
 
 	public Jugador getJugadorActual() {
 		return this.jugadorActual;
+	}
+	
+	public Peon getPeonEnPassant() {
+		return peonEnPassant;
 	}
 
 	private static List<Casilla> crearTableroDelJuego(final Constructor constructor) {
@@ -156,9 +162,10 @@ public class Tablero {
 		}
 		return constructor.toString();
 	}
-	
+
 	public Iterable<Movimiento> getTodosLosMovimientosLegales() {
-		return Iterables.unmodifiableIterable(Iterables.concat(this.jugadorBlancas.getMovimientosLegales(), this.jugadorNegras.getMovimientosLegales()));
+		return Iterables.unmodifiableIterable(Iterables.concat(this.jugadorBlancas.getMovimientosLegales(),
+				this.jugadorNegras.getMovimientosLegales()));
 	}
 
 	public static class Constructor {

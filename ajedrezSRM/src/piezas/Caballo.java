@@ -9,7 +9,7 @@ import com.google.common.collect.ImmutableList;
 import jugadores.Bando;
 import tablero.Casilla;
 import tablero.Movimiento;
-import tablero.Movimiento.MovimientoDeAtaque;
+import tablero.Movimiento.MovimientoAtaquePiezaMayor;
 import tablero.Movimiento.MovimientoPiezaMayor;
 import tablero.Tablero;
 import tablero.UtilidadesTablero;
@@ -41,7 +41,7 @@ public class Caballo extends Pieza {
 
 				final Casilla destinoCasillaCandidata = tablero.getCasilla(destinoCoordenadaCandidata);
 				if (!destinoCasillaCandidata.estaCasillaOcupada()) {
-					// no ocupada 
+					// no ocupada
 					movimientosLegales.add(new MovimientoPiezaMayor(tablero, this, destinoCoordenadaCandidata));
 				} else {
 					// ocupada
@@ -49,7 +49,8 @@ public class Caballo extends Pieza {
 					final Bando bandoDeLaPieza = piezaEnDestino.getBando();
 					if (this.bandoDeLaPieza != bandoDeLaPieza) {
 						// Si no son del mismo bando
-						movimientosLegales.add(new MovimientoDeAtaque(tablero, this, destinoCoordenadaCandidata, piezaEnDestino));
+						movimientosLegales.add(new MovimientoAtaquePiezaMayor(tablero, this, destinoCoordenadaCandidata,
+								piezaEnDestino));
 					}
 				}
 			}
@@ -59,9 +60,10 @@ public class Caballo extends Pieza {
 	}
 
 	/*
-	 * 	Métodos que comprobarán la posición Actual del caballo para comprobar si la casilla candidata
-	 * es válida para el movimiento. Parará el calculo de movimientos legales en el momento en el que 
-	 * la casilla de destino se sitúe fuera del tablero.
+	 * Métodos que comprobarán la posición Actual del caballo para comprobar si la
+	 * casilla candidata es válida para el movimiento. Parará el calculo de
+	 * movimientos legales en el momento en el que la casilla de destino se sitúe
+	 * fuera del tablero.
 	 */
 	private static boolean exclusionDePrimeraColumna(final int posicionActual, final int candidatoAExclusion) {
 		return UtilidadesTablero.PRIMERA_COLUMNA[posicionActual] && (candidatoAExclusion == -17
@@ -69,27 +71,27 @@ public class Caballo extends Pieza {
 	}
 
 	private static boolean exclusionDeSegundaColumna(final int posicionActual, final int candidatoAExclusion) {
-		return UtilidadesTablero.SEGUNDA_COLUMNA[posicionActual] && (candidatoAExclusion == -10
-				|| candidatoAExclusion == 6);
+		return UtilidadesTablero.SEGUNDA_COLUMNA[posicionActual]
+				&& (candidatoAExclusion == -10 || candidatoAExclusion == 6);
 	}
 
 	private static boolean exclusionDeSeptimaColumna(final int posicionActual, final int candidatoAExclusion) {
-		return UtilidadesTablero.SEPTIMA_COLUMNA[posicionActual] && (candidatoAExclusion == 10
-				|| candidatoAExclusion == -6);
+		return UtilidadesTablero.SEPTIMA_COLUMNA[posicionActual]
+				&& (candidatoAExclusion == 10 || candidatoAExclusion == -6);
 	}
 
 	private static boolean exclusionDeOctavaColumna(final int posicionActual, final int candidatoAExclusion) {
 		return UtilidadesTablero.OCTAVA_COLUMNA[posicionActual] && (candidatoAExclusion == 17
 				|| candidatoAExclusion == 10 || candidatoAExclusion == -6 || candidatoAExclusion == -15);
 	}
-	
+
 	@Override
 	public String toString() {
 		return tipoDePieza.CABALLO.toString();
 	}
 
 	@Override
-	public Caballo moverPieza(Movimiento movimiento) {		
+	public Caballo moverPieza(Movimiento movimiento) {
 		return new Caballo(movimiento.getCoordenadaDeDestino(), movimiento.getPiezaMovida().getBando());
 	}
 }

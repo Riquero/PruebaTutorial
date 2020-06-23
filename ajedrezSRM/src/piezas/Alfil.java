@@ -9,7 +9,7 @@ import com.google.common.collect.ImmutableList;
 import jugadores.Bando;
 import tablero.Casilla;
 import tablero.Movimiento;
-import tablero.Movimiento.MovimientoDeAtaque;
+import tablero.Movimiento.MovimientoAtaquePiezaMayor;
 import tablero.Movimiento.MovimientoPiezaMayor;
 import tablero.Tablero;
 import tablero.UtilidadesTablero;
@@ -52,8 +52,8 @@ public class Alfil extends Pieza {
 						final Bando bandoDeLaPieza = piezaEnDestino.getBando();
 						if (this.bandoDeLaPieza != bandoDeLaPieza) {
 							// Si no son del mismo bando
-							movimientosLegales.add(
-									new MovimientoDeAtaque(tablero, this, destinoCoordenadaCandidata, piezaEnDestino));
+							movimientosLegales.add(new MovimientoAtaquePiezaMayor(tablero, this,
+									destinoCoordenadaCandidata, piezaEnDestino));
 						}
 						break; // permite seguir la diagonal al no encontrar ninguna pieza bloqueando la
 								// diagonal

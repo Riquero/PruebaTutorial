@@ -9,7 +9,7 @@ import com.google.common.collect.ImmutableList;
 import jugadores.Bando;
 import tablero.Casilla;
 import tablero.Movimiento;
-import tablero.Movimiento.MovimientoDeAtaque;
+import tablero.Movimiento.MovimientoAtaquePiezaMayor;
 import tablero.Movimiento.MovimientoPiezaMayor;
 import tablero.Tablero;
 import tablero.UtilidadesTablero;
@@ -19,7 +19,7 @@ public class Torre extends Pieza {
 	private static final int[] VECTOR_COORDENADA_MOVIMIENTO_CANDIDATA = { -8, -1, 1, 8 };
 
 	public Torre(final int posicionPieza, final Bando bandoDeLaPieza) {
-		super(posicionPieza, bandoDeLaPieza,TipoDePieza.TORRE);
+		super(posicionPieza, bandoDeLaPieza, TipoDePieza.TORRE);
 	}
 
 	public Collection<Movimiento> calculaMovimientosLegales(final Tablero tablero) {
@@ -52,8 +52,8 @@ public class Torre extends Pieza {
 						final Bando bandoDeLaPieza = piezaEnDestino.getBando();
 						if (this.bandoDeLaPieza != bandoDeLaPieza) {
 							// Si no son del mismo bando
-							movimientosLegales.add(
-									new MovimientoDeAtaque(tablero, this, destinoCoordenadaCandidata, piezaEnDestino));
+							movimientosLegales.add(new MovimientoAtaquePiezaMayor(tablero, this,
+									destinoCoordenadaCandidata, piezaEnDestino));
 						}
 						break; // permite seguir la diagonal al no encontrar ninguna pieza bloqueando
 					}
@@ -77,7 +77,7 @@ public class Torre extends Pieza {
 	}
 
 	@Override
-	public Torre moverPieza(Movimiento movimiento) {		
+	public Torre moverPieza(Movimiento movimiento) {
 		return new Torre(movimiento.getCoordenadaDeDestino(), movimiento.getPiezaMovida().getBando());
 	}
 }

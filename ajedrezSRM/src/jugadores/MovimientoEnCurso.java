@@ -16,6 +16,10 @@ public class MovimientoEnCurso {
 		this.estadoDeMovimiento = estadoDeMovimiento;
 	}
 	
+	public Tablero getTableroDeTransicion() {
+		return tableroDeTransicion;
+	}
+	
 	public EstadoDeMovimiento getEstadoDeMovimiento() {
 		return this.estadoDeMovimiento;
 	}

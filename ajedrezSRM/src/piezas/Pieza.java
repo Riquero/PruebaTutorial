@@ -50,6 +50,10 @@ public abstract class Pieza {
 	public TipoDePieza getTipoDePieza() {
 		return this.tipoDePieza;
 	}
+	
+	public int getValorPieza() {
+		return this.tipoDePieza.getValorPieza();
+	}
 
 	@Override
 	public boolean equals(final Object otro) {
@@ -75,7 +79,7 @@ public abstract class Pieza {
 
 	public enum TipoDePieza {
 
-		PEON("P") {
+		PEON("P", 100) {
 			@Override
 			public boolean esRey() {
 				return false;
@@ -86,7 +90,7 @@ public abstract class Pieza {
 				return false;
 			}
 		},
-		CABALLO("K") {
+		CABALLO("K", 300) {
 			@Override
 			public boolean esRey() {
 				return false;
@@ -96,7 +100,7 @@ public abstract class Pieza {
 				return false;
 			}
 		},
-		ALFIL("A") {
+		ALFIL("A", 300) {
 			@Override
 			public boolean esRey() {
 				return false;
@@ -106,7 +110,7 @@ public abstract class Pieza {
 				return false;
 			}
 		},
-		TORRE("T") {
+		TORRE("T", 500) {
 			@Override
 			public boolean esRey() {
 				return false;
@@ -116,7 +120,7 @@ public abstract class Pieza {
 				return true;
 			}
 		},
-		REINA("Q") {
+		REINA("Q", 900) {
 			@Override
 			public boolean esRey() {
 				return false;
@@ -126,7 +130,7 @@ public abstract class Pieza {
 				return false;
 			}
 		},
-		REY("R") {
+		REY("R", 10000) {
 			@Override
 			public boolean esRey() {
 				return true;
@@ -138,14 +142,20 @@ public abstract class Pieza {
 		};
 
 		private String nombreDePieza;
+		private int valorPieza;
 
-		TipoDePieza(String nombreDePieza) {
+		TipoDePieza(String nombreDePieza, final int valorPieza) {
 			this.nombreDePieza = nombreDePieza;
+			this.valorPieza = valorPieza;
 		}
 
 		@Override
 		public String toString() {
 			return this.nombreDePieza;
+		}
+		
+		public int getValorPieza() {
+			return this.valorPieza;
 		}
 
 		public abstract boolean esRey();
